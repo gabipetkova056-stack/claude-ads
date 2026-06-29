@@ -1,0 +1,31 @@
+{
+  "name": "Content Calendar (claude-ads)",
+  "meta": { "note": "Self-hosted. Schedules on-brand social drafts. Connect IG/TikTok/FB via your own credentials in n8n; drafts only by default." },
+  "nodes": [
+    {
+      "parameters": { "rule": { "interval": [ { "field": "days", "daysInterval": 1 } ] } },
+      "name": "Daily",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [ 240, 300 ]
+    },
+    {
+      "parameters": { "command": "test -f content-calendar.md && head -40 content-calendar.md" },
+      "name": "Read calendar",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [ 480, 300 ]
+    },
+    {
+      "parameters": { "content": "Queue today's posts as drafts for IG/TikTok/FB. Hold publish for approval." },
+      "name": "Queue drafts (review)",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [ 720, 300 ]
+    }
+  ],
+  "connections": {
+    "Daily": { "main": [ [ { "node": "Read calendar", "type": "main", "index": 0 } ] ] },
+    "Read calendar": { "main": [ [ { "node": "Queue drafts (review)", "type": "main", "index": 0 } ] ] }
+  }
+}

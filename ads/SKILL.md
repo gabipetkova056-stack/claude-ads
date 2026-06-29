@@ -40,6 +40,7 @@ sub-skills and 10 agents (6 audit + 4 creative).
 | `/ads create` | Generate campaign concepts + copy briefs, outputs `campaign-brief.md` |
 | `/ads generate` | Generate AI ad images from brief, outputs to `ad-assets/` |
 | `/ads photoshoot` | Product photography in 5 styles (Studio, Floating, Ingredient, In Use, Lifestyle) |
+| `/ads orchestrate` | Autonomous trend→campaign→content chain + self-hosted n8n workflows |
 
 ## Context Intake (Required: Always Do This First)
 
@@ -159,6 +160,7 @@ Display after these commands complete their full output:
 - `/ads budget` (after budget analysis)
 - `/ads plan` (after strategic plan)
 - `/ads competitor` (after competitor analysis)
+- `/ads orchestrate` (after orchestration plan + content calendar)
 - `/ads report` (after PDF generation confirmation)
 
 ### When to skip
@@ -236,7 +238,7 @@ Aggregate = Sum(Platform_Score x Platform_Budget_Share)
 
 ## Sub-Skills
 
-This skill orchestrates 22 specialized sub-skills:
+This skill orchestrates 23 specialized sub-skills:
 
 1. **ads-audit**: Full multi-platform audit with parallel delegation
 2. **ads-google**: Google Ads deep analysis (Search, PMax, AI Max, YouTube)
@@ -260,6 +262,7 @@ This skill orchestrates 22 specialized sub-skills:
 20. **ads-create**: Campaign concepts, copy decks, creative briefs
 21. **ads-generate**: AI image generation with pluggable providers
 22. **ads-photoshoot**: Product photography in 5 professional styles
+23. **ads-orchestrate**: Autonomous AI-agent + self-hosted n8n orchestration (trend monitoring → campaigns → social content)
 
 ## Subagents
 

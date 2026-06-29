@@ -1,0 +1,31 @@
+{
+  "name": "Trend Monitor (claude-ads)",
+  "meta": { "note": "Self-hosted. Wire your own RSS feeds. No secrets stored." },
+  "nodes": [
+    {
+      "parameters": { "rule": { "interval": [ { "field": "hours", "hoursInterval": 6 } ] } },
+      "name": "Every 6h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [ 240, 300 ]
+    },
+    {
+      "parameters": { "command": "python /opt/claude-ads/scripts/trends.py --niche perfume --top 10 --output /tmp/trends.json && cat /tmp/trends.json" },
+      "name": "Run trends.py",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [ 480, 300 ]
+    },
+    {
+      "parameters": { "functionCode": "return JSON.parse(items[0].json.stdout).topics.map(t => ({json:t}));" },
+      "name": "Dedupe + emit topics",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [ 720, 300 ]
+    }
+  ],
+  "connections": {
+    "Every 6h": { "main": [ [ { "node": "Run trends.py", "type": "main", "index": 0 } ] ] },
+    "Run trends.py": { "main": [ [ { "node": "Dedupe + emit topics", "type": "main", "index": 0 } ] ] }
+  }
+}

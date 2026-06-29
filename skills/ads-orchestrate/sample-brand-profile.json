@@ -1,0 +1,12 @@
+{
+  "brand_name": "Kostin Perfums",
+  "website": "https://kostinperfums.com",
+  "industry": "E-commerce",
+  "niche": "perfume,fragrance,niche scent",
+  "voice": ["elegant", "sensory", "confident"],
+  "palette": { "primary": "#1A1A1A", "accent": "#C9A24B", "background": "#F5F1EA" },
+  "typography": { "headline": "serif", "body": "sans-serif" },
+  "audience": { "age": "25-45", "interest": "luxury fragrance", "pain": "finding a signature scent" },
+  "platforms": ["meta", "google", "tiktok"],
+  "note": "Sample profile for ads-orchestrate dry-run E2E; replace via /ads dna https://kostinperfums.com"
+}

@@ -259,6 +259,7 @@ claude
 | `/ads create` | Generate campaign concepts + copy briefs → `campaign-brief.md` |
 | `/ads generate` | Generate AI ad images from brief → `ad-assets/` |
 | `/ads photoshoot` | Product photography in 5 styles (Studio, Floating, Ingredient, In Use, Lifestyle) |
+| `/ads orchestrate` | Autonomous trend→campaign→content chain + self-hosted n8n workflows |
 
 ### `/ads audit`
 **Full Multi-Platform Audit**
@@ -454,7 +455,7 @@ Rare among Claude Code skills. Makes the project auditable end-to-end and preven
 ```
 ~/.claude/skills/ads/              # Main orchestrator
 ~/.claude/skills/ads/references/   # 26 RAG reference files
-~/.claude/skills/ads-*/            # 22 sub-skills (incl. ads-math, ads-test, ads-amazon, ads-attribution, ads-server-side-tracking)
+~/.claude/skills/ads-*/            # 23 sub-skills (incl. ads-math, ads-test, ads-amazon, ads-attribution, ads-server-side-tracking, ads-orchestrate)
 ~/.claude/skills/ads-plan/assets/  # 12 industry templates
 ~/.claude/agents/                  # 10 agents (6 audit + 4 creative)
 ~/.claude/skills/ads/tests/        # 41-test pytest eval harness (Wave 2)

@@ -166,5 +166,12 @@
     "expected_skill": "ads-landing",
     "should_trigger": false,
     "notes": "Landing page audit. Must NOT trigger ads-dna or ads-create"
+  },
+  {
+    "id": "orch-001",
+    "prompt": "set up autonomous orchestration of n8n workflow to monitor trending topics and build a content calendar",
+    "expected_skill": "ads-orchestrate",
+    "should_trigger": true,
+    "notes": "Orchestration + trend monitoring + content calendar"
   }
 ]

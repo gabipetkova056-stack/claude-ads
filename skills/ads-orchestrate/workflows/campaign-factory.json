@@ -1,0 +1,39 @@
+{
+  "name": "Campaign Factory (claude-ads)",
+  "meta": { "note": "Self-hosted. Trend payload triggers the claude-ads creative chain. Drafts only; human review before publish." },
+  "nodes": [
+    {
+      "parameters": { "path": "campaign-factory", "httpMethod": "POST" },
+      "name": "Trend Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [ 240, 300 ]
+    },
+    {
+      "parameters": { "command": "claude /ads create --platforms meta google tiktok --objective sales <<< \"$(cat)\"" },
+      "name": "ads-create chain",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [ 480, 300 ]
+    },
+    {
+      "parameters": { "command": "claude /ads generate" },
+      "name": "ads-generate assets",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [ 720, 300 ]
+    },
+    {
+      "parameters": { "content": "Draft campaign ready for review. Approve to schedule." },
+      "name": "Hold for review",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [ 960, 300 ]
+    }
+  ],
+  "connections": {
+    "Trend Webhook": { "main": [ [ { "node": "ads-create chain", "type": "main", "index": 0 } ] ] },
+    "ads-create chain": { "main": [ [ { "node": "ads-generate assets", "type": "main", "index": 0 } ] ] },
+    "ads-generate assets": { "main": [ [ { "node": "Hold for review", "type": "main", "index": 0 } ] ] }
+  }
+}

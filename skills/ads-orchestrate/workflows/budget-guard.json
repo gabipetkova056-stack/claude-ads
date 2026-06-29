@@ -1,0 +1,39 @@
+{
+  "name": "Budget Guard (claude-ads)",
+  "meta": { "note": "Self-hosted. Enforces 3x Kill Rule. Pause logic via your platform API credentials in n8n credential store (not here)." },
+  "nodes": [
+    {
+      "parameters": { "rule": { "interval": [ { "field": "hours", "hoursInterval": 1 } ] } },
+      "name": "Hourly",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [ 240, 300 ]
+    },
+    {
+      "parameters": { "command": "claude /ads math --check-cpa-vs-target" },
+      "name": "Check CPA vs target",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [ 480, 300 ]
+    },
+    {
+      "parameters": { "conditions": { "number": [ { "value1": "={{$json.cpa_multiple}}", "operation": "larger", "value2": 3 } ] } },
+      "name": "CPA > 3x target?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [ 720, 300 ]
+    },
+    {
+      "parameters": { "content": "ALERT: pause campaign + notify human (budget guardrail)." },
+      "name": "Pause + alert",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [ 960, 300 ]
+    }
+  ],
+  "connections": {
+    "Hourly": { "main": [ [ { "node": "Check CPA vs target", "type": "main", "index": 0 } ] ] },
+    "Check CPA vs target": { "main": [ [ { "node": "CPA > 3x target?", "type": "main", "index": 0 } ] ] },
+    "CPA > 3x target?": { "main": [ [ { "node": "Pause + alert", "type": "main", "index": 0 } ] ] }
+  }
+}
