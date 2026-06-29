@@ -10,7 +10,7 @@
       "position": [ 240, 300 ]
     },
     {
-      "parameters": { "command": "claude /ads math --check-cpa-vs-target" },
+      "parameters": { "command": "claude /ads math" },
       "name": "Check CPA vs target",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,

@@ -112,7 +112,7 @@ def monitor(niche: str, feeds: list, top: int = 10) -> dict:
     for feed in feeds:
         try:
             all_items.extend(fetch_feed(feed))
-        except Exception as e:  # noqa: BLE001 - report per-feed, keep going
+        except (requests.RequestException, ElementTree.ParseError, ValueError) as e:
             errors.append({"feed": sanitize_url(feed), "error": sanitize_error(e)})
     return {
         "niche": niche,
